@@ -5,6 +5,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { roleGuard } from './core/guards/role-guard';
 import { Videojuegos } from './core/services/videojuegos';
 import { Categorias } from './core/services/categorias';
+import { Navbar } from './shared/components/navbar/navbar';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path: 'gamezone',
     component: Home,
+  },
+   {
+    path: 'header',
+    component: Navbar,
   },
   {
     path: 'login',

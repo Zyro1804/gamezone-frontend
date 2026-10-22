@@ -1,23 +1,29 @@
 
 <header class="gz-navbar">
+
   <a class="gz-logo" routerLink="/gamezone">
-    <span class="gz-logo-icon">🎮</span>
+    <i class="oi oi-gamepad" aria-hidden="true"></i>
     <span>GameZone</span>
   </a>
 
   <nav class="gz-links">
-    <a routerLink="/gamezone"
-       routerLinkActive="active">
+    <a
+      routerLink="/gamezone"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+      <i class="pi pi-home" aria-hidden="true"></i>
       Inicio
     </a>
 
-    <a routerLink="/gamezone"
-       fragment="categorias">
+    <a routerLink="/gamezone" fragment="categorias">
+      <i class="oi oi-grid" aria-hidden="true"></i>
       Categorías
     </a>
   </nav>
 
   <a class="gz-login" routerLink="/login">
+    <i class="oi oi-user" aria-hidden="true"></i>
     Ingresar
   </a>
+
 </header>

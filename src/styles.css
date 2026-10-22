@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --gz-black: #101715;
+  --gz-green-dark: #123B30;
+  --gz-green: #167C61;
+  --gz-primary: #24B88A;
+  --gz-aqua: #70D9BD;
+  --gz-green-light: #C5F4E6;
+  --gz-white: #FFFFFF;
+
+  --gz-background: var(--gz-black);
+  --gz-surface: var(--gz-green-dark);
+  --gz-text: var(--gz-white);
+
+  --gz-gradient: linear-gradient(
+    135deg,
+    #123B30 0%,
+    #167C61 40%,
+    #24B88A 75%,
+    #70D9BD 100%
+  );
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--gz-background);
+  color: var(--gz-text);
+}

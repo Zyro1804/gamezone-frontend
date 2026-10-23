@@ -1,1 +1,45 @@
-<p>videojuego-card works!</p>
+
+<p-card styleClass="gz-game-card">
+
+  <ng-template #header>
+    <div class="gz-game-image">
+      @if (videojuego().imagenUrl) {
+        <img
+          [src]="videojuego().imagenUrl"
+          [alt]="videojuego().nombre"
+        />
+      } @else {
+        <div class="gz-image-placeholder">
+          <i class="pi pi-image"></i>
+        </div>
+      }
+
+      @if (videojuego().destacado) {
+        <span class="gz-featured">Destacado</span>
+      }
+    </div>
+  </ng-template>
+
+  <div class="gz-game-info">
+    <span class="gz-category">
+      {{ videojuego().categoria || 'Videojuego' }}
+    </span>
+
+    <h3>{{ videojuego().nombre }}</h3>
+
+    <p class="gz-description">
+      {{ videojuego().descripcion || 'Descubre este videojuego en GameZone.' }}
+    </p>
+
+    <div class="gz-game-footer">
+      <strong>
+        {{ videojuego().precio | currency:'MXN':'symbol':'1.2-2' }}
+      </strong>
+
+      <a class="gz-detail-button" [attr.href]="'/gamezone/' + videojuego().id">
+        Ver detalles
+      </a>
+    </div>
+  </div>
+
+</p-card>

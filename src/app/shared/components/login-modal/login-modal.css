@@ -1,0 +1,66 @@
+
+.gz-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 12px 0;
+}
+
+.gz-login-heading h2 {
+  margin: 0 0 8px;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.gz-login-heading p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.gz-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gz-login-field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gz-login-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid var(--gz-green);
+  border-radius: 9px;
+  background: var(--gz-black);
+  color: var(--gz-white);
+  font-size: 14px;
+  outline: none;
+}
+
+.gz-login-field input:focus {
+  border-color: var(--gz-primary);
+}
+
+.gz-login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 9px;
+  background: var(--gz-primary);
+  color: var(--gz-black);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gz-login-button:hover {
+  background: var(--gz-aqua);
+}

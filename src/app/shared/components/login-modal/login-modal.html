@@ -1,1 +1,58 @@
-<p>login-modal works!</p>
+
+<p-dialog
+  header="Iniciar sesión"
+  [visible]="visible()"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [closable]="true"
+  [style]="{ width: '420px', maxWidth: '95vw' }"
+>
+  <form class="gz-login-form" (ngSubmit)="iniciarSesion()">
+
+    <div class="gz-login-heading">
+      <h2>Bienvenido a GameZone</h2>
+      <p>Ingresa tus credenciales para continuar.</p>
+    </div>
+
+    <div class="gz-login-field">
+      <label for="login-correo">Correo electrónico</label>
+      <input
+        id="login-correo"
+        type="email"
+        name="correo"
+        [(ngModel)]="correo"
+        placeholder="correo@ejemplo.com"
+        autocomplete="email"
+        required
+      />
+    </div>
+
+    <div class="gz-login-field">
+      <label for="login-password">Contraseña</label>
+      <input
+        id="login-password"
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Ingresa tu contraseña"
+        autocomplete="current-password"
+        required
+      />
+    </div>
+
+   <button
+    type="submit"
+    class="gz-login-button"
+    [disabled]="cargando()"
+    >
+    @if (cargando()) {
+        <i class="pi pi-spin pi-spinner"></i>
+        Ingresando...
+    } @else {
+        <i class="pi pi-sign-in"></i>
+        Ingresar
+    }
+    </button>
+
+  </form>
+</p-dialog>

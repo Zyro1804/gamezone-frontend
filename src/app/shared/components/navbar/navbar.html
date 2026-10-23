@@ -20,9 +20,14 @@
     </a>
   </nav>
 
-  <a class="gz-login" routerLink="/login">
-    <i class="pi pi-user" aria-hidden="true"></i>
-    Ingresar
-  </a>
+  <button class="gz-login" type="button" (click)="abrirLogin()">
+  <i class="pi pi-user"></i>
+  Ingresar
+  </button>
 
 </header>
+
+<app-login-modal
+  [visible]="mostrarLogin()"
+  (visibleChange)="mostrarLogin.set($event)"
+/>

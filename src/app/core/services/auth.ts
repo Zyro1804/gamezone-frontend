@@ -22,6 +22,12 @@ export interface LoginResponse {
     usuario: Usuario;
 }
 
+export interface RegistroUsuario {
+  nombre: string;
+  email: string;
+  password: string;
+}
+
 
 @Service()
 export class Auth {
@@ -75,6 +81,17 @@ export class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('usuario');
     this.usuarioActual.set(null);
+  }
+
+  registrarUsuario(datos: {
+    nombre: string;
+    email: string;
+    password: string;
+  }) {
+    return this.http.post(
+      `${this.baseUrl}/register`,
+      datos
+    );
   }
 
 }

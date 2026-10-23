@@ -10,6 +10,7 @@ export interface Videojuego {
   precio: number;
   categoria?: string;
   destacado?: boolean;
+   totalVentas?: number;
 }
 
 

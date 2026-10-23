@@ -6,24 +6,53 @@
   </a>
 
   <nav class="gz-links">
-    <a
-      routerLink="/gamezone"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }">
+  <a href="#inicio" (click)="irASeccion('inicio'); $event.preventDefault()">
       <i class="pi pi-home" aria-hidden="true"></i>
       Inicio
     </a>
 
-    <a routerLink="/gamezone" fragment="categorias">
+    <a  href="#categorias"  (click)="irASeccion('categorias'); $event.preventDefault()">
       <i class="pi pi-th-large" aria-hidden="true"></i>
       Categorías
     </a>
+
+     <a  href="#sells" (click)="irASeccion('sells'); $event.preventDefault()">
+      <i class="pi pi-shop" aria-hidden="true"></i>
+      Mas vendidos
+    </a>
   </nav>
 
-  <button class="gz-login" type="button" (click)="abrirLogin()">
-  <i class="pi pi-user"></i>
-  Ingresar
-  </button>
+
+  @if (authService.usuarioActual(); as usuario) {
+    <div class="gz-navbar-user">
+      <div class="gz-navbar-avatar">
+        <i class="pi pi-user"></i>
+      </div>
+
+      <span class="gz-navbar-username">
+        {{ usuario.nombre }}
+      </span>
+
+      <button
+        type="button"
+        class="gz-navbar-logout"
+        title="Cerrar sesión"
+        (click)="cerrarSesion()"
+      >
+        <i class="pi pi-sign-out"></i>
+      </button>
+    </div>
+  } @else {
+    <button
+      type="button"
+      class="gz-login"
+      (click)="abrirLogin()"
+    >
+      <i class="pi pi-user-plus"></i>
+      Ingresar
+    </button>
+  }
+
 
 </header>
 

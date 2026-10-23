@@ -1,53 +1,164 @@
 
 <p-dialog
-  header="Iniciar sesión"
+  [header]="modoRegistro() ? 'Crear cuenta' : 'Iniciar sesión'"
   [visible]="visible()"
   (visibleChange)="visibleChange.emit($event)"
   [modal]="true"
   [closable]="true"
   [style]="{ width: '420px', maxWidth: '95vw' }"
 >
-  <form class="gz-login-form" (ngSubmit)="iniciarSesion()">
-    <div class="gz-login-field">
-      <label for="login-correo">Correo electrónico</label>
-      <input
-        id="login-correo"
-        type="email"
-        name="correo"
-        [(ngModel)]="correo"
-        placeholder="correo@ejemplo.com"
-        autocomplete="email"
-        required
-      />
-    </div>
+  @if (!modoRegistro()) {
 
-    <div class="gz-login-field">
-      <label for="login-password">Contraseña</label>
-      <input
-        id="login-password"
-        type="password"
-        name="password"
-        [(ngModel)]="password"
-        placeholder="Ingresa tu contraseña"
-        autocomplete="current-password"
-        required
-      />
-    </div>
+    <form class="gz-login-form" (ngSubmit)="iniciarSesion()">
 
-   <button
-    type="submit"
-    class="gz-login-button"
-    [disabled]="cargando()"
-    >
-    @if (cargando()) {
-        <i class="pi pi-spin pi-spinner"></i>
-        Ingresando...
-    } @else {
-        <i class="pi pi-sign-in"></i>
-        Ingresar
-    }
-    </button>
+      <div class="gz-login-field">
+        <label for="login-correo">Correo electrónico</label>
+        <input
+          id="login-correo"
+          type="email"
+          name="correo"
+          [(ngModel)]="correo"
+          placeholder="correo@ejemplo.com"
+          autocomplete="email"
+          required
+        />
+      </div>
 
-  </form>
+      <div class="gz-login-field">
+        <label for="login-password">Contraseña</label>
+        <div class="card flex justify-center">
+        <p-password
+          inputId="login-password"
+          name="password"
+          [(ngModel)]="password"
+          [feedback]="false"
+          [toggleMask]="true"
+          placeholder="Ingresa tu contraseña"
+          autocomplete="current-password"
+          [required]="true"
+          styleClass="gz-password"
+          inputStyleClass="gz-password-input"
+        />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="gz-login-button"
+        [disabled]="cargando()"
+      >
+        @if (cargando()) {
+          <i class="pi pi-spin pi-spinner"></i>
+          Ingresando...
+        } @else {
+          <i class="pi pi-sign-in"></i>
+          Ingresar
+        }
+      </button>
+
+      <div class="gz-auth-switch">
+        <span>¿Todavía no tienes una cuenta?</span>
+        <button type="button" (click)="cambiarModo(true)">
+          Regístrate aquí
+        </button>
+      </div>
+
+    </form>
+
+  } @else {
+
+    <form class="gz-login-form" (ngSubmit)="registrarUsuario()">
+
+      <div class="gz-login-field">
+        <label for="registro-nombre">Nombre completo</label>
+        <input
+          id="registro-nombre"
+          type="text"
+          name="nombreRegistro"
+          [(ngModel)]="nombreRegistro"
+          placeholder="Ingresa tu nombre"
+          autocomplete="name"
+          maxlength="100"
+          required
+        />
+      </div>
+
+      <div class="gz-login-field">
+        <label for="registro-correo">Correo electrónico</label>
+        <input
+          id="registro-correo"
+          type="email"
+          name="correoRegistro"
+          [(ngModel)]="correoRegistro"
+          placeholder="correo@ejemplo.com"
+          autocomplete="email"
+          maxlength="150"
+          required
+        />
+      </div>
+
+     
+      <div class="gz-login-field">
+        <label for="registro-password">Contraseña</label>
+
+        <p-password
+          inputId="registro-password"
+          name="passwordRegistro"
+          [(ngModel)]="passwordRegistro"
+          [feedback]="false"
+          [toggleMask]="true"
+          placeholder="Mínimo 8 caracteres"
+          autocomplete="new-password"
+          [minlength]="8"
+          [maxlength]="72"
+          [required]="true"
+          styleClass="gz-password"
+          inputStyleClass="gz-password-input"
+        />
+      </div>
+
+      <div class="gz-login-field">
+        <label for="registro-confirmar">Confirmar contraseña</label>
+
+        <p-password
+          inputId="registro-confirmar"
+          name="confirmarPassword"
+          [(ngModel)]="confirmarPassword"
+          [feedback]="false"
+          [toggleMask]="true"
+          placeholder="Repite tu contraseña"
+          autocomplete="new-password"
+          [required]="true"
+          styleClass="gz-password"
+          inputStyleClass="gz-password-input"
+        />
+      </div>
+
+
+      <button
+        type="submit"
+        class="gz-login-button"
+        [disabled]="cargando()"
+      >
+        @if (cargando()) {
+          <i class="pi pi-spin pi-spinner"></i>
+          Creando cuenta...
+        } @else {
+          <i class="pi pi-user-plus"></i>
+          Crear cuenta
+        }
+      </button>
+
+      <div class="gz-auth-switch">
+        <span>¿Ya tienes una cuenta?</span>
+        <button type="button" (click)="cambiarModo(false)">
+          Iniciar sesión
+        </button>
+      </div>
+
+    </form>
+
+  }
 </p-dialog>
+
 <p-toast position="top-right" />

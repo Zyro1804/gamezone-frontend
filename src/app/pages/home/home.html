@@ -1,23 +1,236 @@
 <div class="gz-page">
     <app-navbar />
+
     <main class="gz-home">
-        <section class="gz-hero">
+         @if (cargandoInicial()) {
+        <div class="gz-skeleton-page">
+
+        <section class="gz-skeleton-hero">
+            <div class="gz-skeleton gz-sk-label"></div>
+            <div class="gz-skeleton gz-sk-title"></div>
+            <div class="gz-skeleton gz-sk-title-short"></div>
+            <div class="gz-skeleton gz-sk-description"></div>
+            <div class="gz-skeleton gz-sk-button"></div>
+        </section>
+
+        <section class="gz-skeleton-section">
+            <div class="gz-skeleton gz-sk-heading"></div>
+
+            <div class="gz-sk-platforms">
+            @for (item of [1, 2, 3]; track item) {
+                <div class="gz-skeleton gz-sk-platform"></div>
+            }
+            </div>
+        </section>
+
+        <section class="gz-skeleton-section">
+            <div class="gz-skeleton gz-sk-heading"></div>
+
+            <div class="gz-sk-filters">
+            @for (item of [1, 2, 3, 4, 5]; track item) {
+                <div class="gz-skeleton gz-sk-filter"></div>
+            }
+            </div>
+
+            <div class="gz-sk-games">
+            @for (item of [1, 2, 3, 4]; track item) {
+                <div class="gz-sk-game">
+                <div class="gz-skeleton gz-sk-cover"></div>
+                <div class="gz-skeleton gz-sk-game-title"></div>
+                <div class="gz-skeleton gz-sk-game-text"></div>
+                </div>
+            }
+            </div>
+        </section>
+
+        <section class="gz-skeleton-section">
+            <div class="gz-skeleton gz-sk-heading"></div>
+
+            <div class="gz-sk-circles">
+            @for (item of [1, 2, 3]; track item) {
+                <div class="gz-sk-circle-item">
+                <div class="gz-skeleton gz-sk-circle"></div>
+                <div class="gz-skeleton gz-sk-circle-text"></div>
+                </div>
+            }
+            </div>
+        </section>
+
+        <section class="gz-skeleton-section">
+            <div class="gz-skeleton gz-sk-heading"></div>
+
+            <div class="gz-sk-circles">
+            @for (item of [1, 2, 3, 4]; track item) {
+                <div class="gz-sk-circle-item">
+                <div class="gz-skeleton gz-sk-circle"></div>
+                <div class="gz-skeleton gz-sk-circle-text"></div>
+                </div>
+            }
+            </div>
+        </section>
+
+        </div>
+        } @else{
+
+      
+        <section class="gz-hero" id="inicio">
             <div class="gz-hero-content">
                 <span class="gz-hero-label">BIENVENIDO A GAMEZONE</span>
+
                 <h1>
                     Descubre tu próximo
                     <span>videojuego favorito.</span>
                 </h1>
+
                 <p>
                     Explora nuestro catálogo, descubre nuevos títulos
                     y encuentra tu próxima aventura.
                 </p>
-                <a href="#categorias" class="gz-hero-button">
+
+                <a href="#categorias" class="gz-hero-button" (click)="irASeccion('categorias'); $event.preventDefault()">
                     Explorar videojuegos
                     <i class="pi pi-arrow-right"></i>
                 </a>
             </div>
         </section>
+
+        <section class="gz-platforms">
+            <div class="gz-platforms-container">
+                <div class="gz-platforms-header">
+                    <span class="gz-platforms-label">PLATAFORMAS</span>
+                    <h2>Juega donde quieras</h2>
+                    <p>Disfruta tus videojuegos favoritos en las plataformas más populares.</p>
+                </div>
+
+                <div class="gz-platforms-grid">
+                    <div class="gz-platform-card">
+                        <div class="gz-platform-icon">
+                            <i class="pi pi-desktop"></i>
+                        </div>
+                        <h3>PC Gaming</h3>
+                        <p>Explora mundos increíbles desde tu computadora.</p>
+                    </div>
+
+                    <div class="gz-platform-card">
+                        <div class="gz-platform-icon">
+                            <i class="pi pi-microchip"></i>
+                        </div>
+                        <h3>PlayStation</h3>
+                        <p>Vive experiencias inolvidables en tu consola favorita.</p>
+                    </div>
+
+                    <div class="gz-platform-card">
+                        <div class="gz-platform-icon">
+                            <i class="pi pi-thumbs-up"></i>
+                        </div>
+                        <h3>Xbox</h3>
+                        <p>Descubre grandes aventuras y títulos emocionantes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="gz-catalog" id="categorias">
+            <div class="gz-catalog-container">
+                <div class="gz-catalog-header">
+                    <div>
+                        <span class="gz-catalog-label">NUESTRO CATÁLOGO</span>
+                        <h2>Explora nuestros videojuegos</h2>
+                        <p>
+                            Encuentra los mejores títulos disponibles en GameZone.
+                        </p>
+                    </div>
+                </div>
+                <div class="gz-category-filters">
+
+                    <button type="button" class="gz-category-btn" [class.active]="categoriaSeleccionada() === null"
+                        (click)="seleccionarCategoria(null)">
+                        Todos
+                    </button>
+
+                    @for (categoria of categorias(); track categoria.id) {
+                    <button type="button" class="gz-category-btn"
+                        [class.active]="categoriaSeleccionada() === categoria.id"
+                        (click)="seleccionarCategoria(categoria.id)">
+                        {{ categoria.nombre }}
+                    </button>
+                    }
+
+                </div>
+
+                @if (cargando()) {
+                <div class="gz-catalog-state">
+                    <i class="pi pi-spin pi-spinner"></i>
+                    <p>Cargando videojuegos...</p>
+                </div>
+                } @else if (error()) {
+                <div class="gz-catalog-state">
+                    <i class="pi pi-exclamation-circle"></i>
+                    <p>No se pudieron cargar los videojuegos.</p>
+                </div>
+                } @else {
+                <div class="gz-games-grid">
+                    @for (videojuego of videojuegosFiltrados(); track videojuego.id) {
+                    <app-videojuego-card [videojuego]="videojuego" />
+                    } @empty {
+                    <div class="gz-catalog-state gz-empty">
+                        <i class="pi pi-inbox"></i>
+                        <p>No hay videojuegos disponibles en esta categoría.</p>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </section>
+
+        <section class="gz-best-sellers" id="sells">
+            <div class="gz-best-sellers-container">
+
+                <div class="gz-best-sellers-header">
+                    <span class="gz-best-sellers-label">
+                        LOS FAVORITOS DE GAMEZONE
+                    </span>
+
+                    <h2>Los videojuegos más vendidos</h2>
+
+                    <p>
+                        Descubre los títulos favoritos de nuestros jugadores.
+                    </p>
+                </div>
+
+                <div class="gz-best-sellers-grid">
+                    @for (juego of videojuegosMasVendidos(); track juego.id) {
+                    <div class="gz-best-seller-item">
+
+                        <div class="gz-best-seller-circle">
+                            <img [src]="juego.imagenUrl || '/assets/categorias/default.jpg'" [alt]="juego.nombre"
+                                loading="lazy" />
+                        </div>
+
+                        <h3>{{ juego.nombre }}</h3>
+
+                        <div class="gz-best-seller-sales">
+                            <i class="pi pi-chart-line"></i>
+                            <span>
+                                {{ juego.totalVentas ?? 0 }} ventas
+                            </span>
+                        </div>
+
+                    </div>
+                    } @empty {
+                    <div class="gz-best-sellers-empty">
+                        <i class="pi pi-inbox"></i>
+                        <p>No hay videojuegos disponibles.</p>
+                    </div>
+                    }
+                </div>
+
+            </div>
+        </section>
+    }
     </main>
+
     <app-footer />
 </div>

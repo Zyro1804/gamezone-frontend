@@ -64,3 +64,62 @@
 .gz-login-button:hover {
   background: var(--gz-aqua);
 }
+
+
+.gz-auth-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(112, 217, 189, 0.15);
+  text-align: center;
+}
+
+.gz-auth-switch span {
+  color: #b8c9c1;
+  font-size: 13px;
+}
+
+.gz-auth-switch button {
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--gz-aqua);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.gz-auth-switch button:hover {
+  color: var(--gz-primary);
+  text-decoration: underline;
+}
+
+.gz-auth-switch button:focus-visible {
+  outline: 2px solid var(--gz-primary);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+:host ::ng-deep .gz-password {
+  width: 100%;
+}
+
+:host ::ng-deep .gz-password-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  background: #101715;
+  color: #ffffff;
+  border: 1px solid #34594b;
+  border-radius: 10px;
+}
+
+:host ::ng-deep .gz-password-input:focus {
+  border-color: var(--gz-primary);
+}

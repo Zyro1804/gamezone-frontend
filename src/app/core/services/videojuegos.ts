@@ -61,4 +61,10 @@ export class videojuegosService {
       `${this.apiUrl}/${id}`
     );
   }
+
+  obtenerMasVendidos(): Observable<unknown> {
+  return this.http.get(
+    `${environment.apiUrl}/videojuegos/mas-vendidos`
+  );
+}
 }

@@ -1,0 +1,46 @@
+
+<div class="gz-admin-layout">
+  <aside class="gz-sidebar">
+    <div class="gz-sidebar-brand">
+      <h2>GameZone</h2>
+      <span>Panel administrativo</span>
+    </div>
+
+    <nav class="gz-sidebar-nav">
+      <a
+        routerLink="/admin/videojuegos"
+        routerLinkActive="active"
+      >
+        <i class="pi pi-desktop"></i>
+        Videojuegos
+      </a>
+
+      <a
+        routerLink="/admin/categorias"
+        routerLinkActive="active"
+      >
+        <i class="pi pi-tags"></i>
+        Categorías
+      </a>
+    </nav>
+
+    <div class="gz-sidebar-bottom">
+      <div class="gz-admin-user">
+        <i class="pi pi-user"></i>
+        <div>
+          <strong>{{ usuario()?.nombre || 'Administrador' }}</strong>
+          <span>{{ usuario()?.rol }}</span>
+        </div>
+      </div>
+
+      <button type="button" (click)="cerrarSesion()">
+        <i class="pi pi-sign-out"></i>
+        Cerrar sesión
+      </button>
+    </div>
+  </aside>
+
+  <main class="gz-admin-content">
+    <router-outlet />
+  </main>
+</div>

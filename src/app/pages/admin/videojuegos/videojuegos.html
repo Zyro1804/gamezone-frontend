@@ -1,1 +1,79 @@
-<p>videojuegos works!</p>
+<div class="gz-admin-videojuegos">
+
+  <div class="gz-admin-header">
+    <div>
+      <h1>Videojuegos</h1>
+      <p>Administra los videojuegos disponibles en GameZone.</p>
+    </div>
+
+    <button pButton type="button"  (click)="abrirModal()">
+      <i class="pi pi-plus"></i>
+      Nuevo videojuego
+    </button>
+  </div>
+
+ 
+@if (cargando()) {
+  <div class="gz-loading">
+    <i class="pi pi-spin pi-spinner"></i>
+    <span>Cargando videojuegos...</span>
+  </div>
+}
+
+<p-table
+  [value]="videojuegos()"
+  [tableStyle]="{ 'min-width': '650px' }"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Precio</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-videojuego>
+    <tr>
+      <td>{{ videojuego.id }}</td>
+      <td>{{ videojuego.nombre }}</td>
+      <td>{{ videojuego.categoria }}</td>
+      <td>{{ videojuego.precio | currency:'MXN' }}</td>
+      <td>{{ videojuego.activo ? 'Activo' : 'Inactivo' }}</td>
+      <td>
+        <div class="gz-actions">
+          <button type="button" pButton>
+            <i class="pi pi-pencil"></i>
+          </button>
+
+          <button type="button" pButton>
+            <i class="pi pi-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="6">
+        <div class="gz-table-empty">
+          <i class="pi pi-inbox"></i>
+          <span>No hay videojuegos registrados.</span>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+</div>
+
+<app-videojuego-form-modal
+  [visible]="mostrarModal()"
+  (visibleChange)="mostrarModal.set($event)"
+  [categorias]="categorias()"
+  [cargando]="guardando()"
+  (guardar)="guardarVideojuego($event)"
+/>

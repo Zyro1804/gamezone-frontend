@@ -1,0 +1,157 @@
+
+.gz-game-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 12px 0;
+}
+
+.gz-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.gz-form-field label {
+  color: var(--gz-white);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gz-form-field input,
+.gz-form-field textarea,
+.gz-form-field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid var(--gz-green);
+  border-radius: 9px;
+  background: var(--gz-black);
+  color: var(--gz-white);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+}
+
+.gz-form-field input:focus,
+.gz-form-field textarea:focus,
+.gz-form-field select:focus {
+  border-color: var(--gz-primary);
+}
+
+.gz-form-field textarea {
+  resize: vertical;
+}
+
+.gz-form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.gz-form-options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 8px 0;
+}
+
+.gz-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gz-white);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.gz-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gz-primary);
+  cursor: pointer;
+}
+
+.gz-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  border: 1px dashed var(--gz-green);
+  border-radius: 12px;
+  background: var(--gz-black);
+  color: var(--gz-green-light);
+  text-align: center;
+}
+
+.gz-upload .pi {
+  font-size: 32px;
+  color: var(--gz-aqua);
+}
+
+.gz-upload input {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+}
+
+.gz-upload span {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.gz-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--gz-green);
+}
+
+.gz-btn-cancel,
+.gz-btn-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.gz-btn-cancel {
+  background: var(--gz-green-dark);
+  color: var(--gz-white);
+}
+
+.gz-btn-save {
+  background: var(--gz-primary);
+  color: var(--gz-black);
+}
+
+.gz-btn-cancel:disabled,
+.gz-btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 550px) {
+  .gz-form-row {
+    flex-direction: column;
+  }
+
+  .gz-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .gz-form-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

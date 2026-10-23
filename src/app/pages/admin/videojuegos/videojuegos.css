@@ -1,0 +1,59 @@
+
+.gz-admin-videojuegos {
+  width: 100%;
+}
+
+.gz-admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.gz-admin-header h1 {
+  margin: 0 0 8px;
+  color: var(--gz-white);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.gz-admin-header p {
+  margin: 0;
+  color: var(--gz-green-light);
+  font-size: 14px;
+}
+
+.gz-admin-header button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gz-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .gz-admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.gz-table-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 35px 16px;
+  color: var(--gz-green-light);
+  font-size: 14px;
+}
+
+.gz-table-empty .pi {
+  font-size: 22px;
+  color: var(--gz-aqua);
+}

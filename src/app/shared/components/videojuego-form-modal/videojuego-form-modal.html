@@ -1,0 +1,184 @@
+
+<p-dialog
+  header="Nuevo videojuego"
+  [visible]="visible()"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [closable]="!cargando()"
+  [style]="{ width: '650px', maxWidth: '95vw' }"
+>
+  <form
+    class="gz-game-form"
+    #gameForm="ngForm"
+    (ngSubmit)="guardarVideojuego()"
+  >
+    <div class="gz-form-field">
+      <label for="nombre">Nombre del videojuego *</label>
+      <input
+        id="nombre"
+        name="nombre"
+        type="text"
+        [(ngModel)]="formulario.nombre"
+        placeholder="Ej. The Legend of Zelda"
+        required
+      />
+    </div>
+
+    <div class="gz-form-field">
+      <label for="descripcion">Descripción</label>
+      <textarea
+        id="descripcion"
+        name="descripcion"
+        [(ngModel)]="formulario.descripcion"
+        placeholder="Descripción del videojuego"
+        rows="4"
+      ></textarea>
+    </div>
+
+    <div class="gz-form-row">
+      <div class="gz-form-field">
+        <label for="precio">Precio (MXN) *</label>
+        <input
+          id="precio"
+          name="precio"
+          type="number"
+          min="0"
+          step="0.01"
+          [(ngModel)]="formulario.precio"
+          placeholder="0.00"
+          required
+        />
+      </div>
+
+      <div class="gz-form-field">
+        <label for="categoria">Categoría *</label>
+        <select
+          id="categoria"
+          name="categoriaId"
+          [(ngModel)]="formulario.categoriaId"
+          required
+        >
+          <option [ngValue]="null">Seleccionar categoría</option>
+
+          @for (categoria of categorias(); track categoria.id) {
+            <option [ngValue]="categoria.id">
+              {{ categoria.nombre }}
+            </option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="gz-form-field">
+      <label for="plataforma">Plataforma *</label>
+      <select
+        id="plataforma"
+        name="plataforma"
+        [(ngModel)]="formulario.plataforma"
+        required
+      >
+        <option value="">Seleccionar plataforma</option>
+
+        @for (plataforma of plataformas; track plataforma) {
+          <option [value]="plataforma">
+            {{ plataforma }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="gz-form-row">
+      <div class="gz-form-field">
+        <label for="jugadores">Total de jugadores</label>
+        <input
+          id="jugadores"
+          name="totalJugadores"
+          type="number"
+          min="0"
+          step="1"
+          [(ngModel)]="formulario.totalJugadores"
+          required
+        />
+      </div>
+
+      <div class="gz-form-field">
+        <label for="ventas">Total de ventas</label>
+        <input
+          id="ventas"
+          name="totalVentas"
+          type="number"
+          min="0"
+          step="1"
+          [(ngModel)]="formulario.totalVentas"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="gz-form-options">
+      <label class="gz-checkbox">
+        <input
+          type="checkbox"
+          name="destacado"
+          [(ngModel)]="formulario.destacado"
+        />
+        <span>Videojuego destacado</span>
+      </label>
+
+      <label class="gz-checkbox">
+        <input
+          type="checkbox"
+          name="activo"
+          [(ngModel)]="formulario.activo"
+        />
+        <span>Videojuego activo</span>
+      </label>
+    </div>
+
+    <div class="gz-form-field">
+      <label for="imagen">Imagen de portada</label>
+
+      <div class="gz-upload">
+        <i class="pi pi-image"></i>
+
+        <input
+          id="imagen"
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          (change)="seleccionarImagen($event)"
+        />
+
+        @if (formulario.imagen) {
+          <span>{{ formulario.imagen.name }}</span>
+        } @else {
+          <span>Selecciona una imagen del videojuego</span>
+        }
+      </div>
+    </div>
+
+    <div class="gz-form-actions">
+      <button
+        type="button"
+        class="gz-btn-cancel"
+        [disabled]="cargando()"
+        (click)="cerrar()"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="submit"
+        class="gz-btn-save"
+        [disabled]="gameForm.invalid || cargando()"
+      >
+        @if (cargando()) {
+          <i class="pi pi-spin pi-spinner"></i>
+          Guardando...
+        } @else {
+          <i class="pi pi-check"></i>
+          Guardar videojuego
+        }
+      </button>
+    </div>
+  </form>
+</p-dialog>

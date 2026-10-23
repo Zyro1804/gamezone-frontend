@@ -3,9 +3,10 @@ import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { authGuard } from './core/guards/auth-guard';
 import { roleGuard } from './core/guards/role-guard';
-import { Videojuegos } from './core/services/videojuegos';
-import { Categorias } from './core/services/categorias';
+import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { Navbar } from './shared/components/navbar/navbar';
+import { Videojuegos } from './pages/admin/videojuegos/videojuegos';
+import { Categorias } from './pages/admin/categorias/categorias';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
+    component: AdminLayout,
     canActivate: [authGuard, roleGuard],
     data: { roles: ['ADMIN'] },
     children: [

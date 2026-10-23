@@ -51,7 +51,7 @@
             class="gz-status"
             [class.gz-status-inactive]="categoria.activo === false"
           >
-            {{ categoria.activo === false ? 'Inactiva' : 'Activa' }}
+            {{ categoria.activo === false ? 'Inactivo' : 'Activo' }}
           </span>
         </td>
         <td>
@@ -94,7 +94,7 @@
 
 
 <p-dialog
-  header="Eliminar categoría"
+  header="Desactivar categoría"
   [visible]="mostrarConfirmacion()"
   (visibleChange)="mostrarConfirmacion.set($event)"
   [modal]="true"
@@ -105,7 +105,7 @@
     <i class="pi pi-exclamation-triangle"></i>
 
     <p>
-      ¿Estás seguro de que deseas eliminar la categoría
+      ¿Estás seguro de que deseas desactivar la categoría
       <strong>{{ categoriaEliminar()?.nombre }}</strong>?
     </p>
 
@@ -135,7 +135,7 @@
           Eliminando...
         } @else {
           <i class="pi pi-trash"></i>
-          Eliminar categoría
+          Desactivar de catalogo
         }
       </button>
     </div>

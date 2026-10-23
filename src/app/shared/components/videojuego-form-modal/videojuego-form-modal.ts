@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from '@openng/optimus-ui/button';
 import { DialogModule } from '@openng/optimus-ui/dialog';
@@ -19,6 +19,20 @@ export interface VideojuegoFormData {
   destacado: boolean;
   activo: boolean;
   imagen: File | null;
+}
+
+export interface VideojuegoEditar {
+  id: string;
+  nombre: string;
+  descripcion?: string;
+  precio: number | string;
+  categoriaId: string;
+  plataforma?: string;
+  totalJugadores?: number;
+  totalVentas?: number;
+  destacado?: boolean;
+  activo?: boolean;
+  imagenUrl?: string;
 }
 
 @Component({
@@ -63,6 +77,31 @@ export class VideojuegoFormModal {
       activo: true,
       imagen: null
     };
+  }
+
+  videojuego = input<VideojuegoEditar | null>(null);
+  imagenActual = input<string | null>(null);
+
+  constructor() {
+    effect(() => {
+      const visible = this.visible();
+      const videojuego = this.videojuego();
+
+      if (!visible) return;
+
+      this.formulario = {
+        nombre: videojuego?.nombre ?? '',
+        descripcion: videojuego?.descripcion ?? '',
+        precio: videojuego ? Number(videojuego.precio) : null,
+        categoriaId: videojuego?.categoriaId ?? null,
+        plataforma: videojuego?.plataforma ?? '',
+        totalJugadores: videojuego?.totalJugadores ?? 0,
+        totalVentas: videojuego?.totalVentas ?? 0,
+        destacado: videojuego?.destacado ?? false,
+        activo: videojuego?.activo ?? true,
+        imagen: null
+      };
+    });
   }
 
   seleccionarImagen(event: Event) {

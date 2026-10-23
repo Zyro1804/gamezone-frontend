@@ -81,17 +81,19 @@
       <td>
         <div class="gz-actions">
           <button
-            pButton
-            type="button"
-            title="Editar videojuego"
-          >
-            <i class="pi pi-pencil"></i>
+          pButton
+          type="button"
+          title="Editar videojuego"
+          (click)="editarVideojuego(videojuego)"
+        >
+          <i class="pi pi-pencil"></i>
           </button>
 
           <button
             pButton
             type="button"
             title="Eliminar videojuego"
+            (click)="solicitarEliminacion(videojuego)"
           >
             <i class="pi pi-trash"></i>
           </button>
@@ -118,9 +120,61 @@
 <app-videojuego-form-modal
   [visible]="mostrarModal()"
   (visibleChange)="mostrarModal.set($event)"
+  [videojuego]="videojuegoSeleccionado()"
+  [imagenActual]="obtenerImagenActual()"
   [categorias]="categorias()"
   [cargando]="guardando()"
   (guardar)="guardarVideojuego($event)"
 />
 
 <p-toast position="top-right" />
+
+<p-dialog
+  header="Eliminar videojuego"
+  [visible]="mostrarConfirmacion()"
+  (visibleChange)="!$event && cancelarEliminacion()"
+  [modal]="true"
+  [closable]="!eliminando()"
+  [dismissableMask]="false"
+  [style]="{ width: '440px', maxWidth: '95vw' }"
+>
+  <div class="gz-delete-content">
+    <i class="pi pi-exclamation-triangle"></i>
+
+    <p>
+      ¿Estás seguro de que deseas eliminar
+      <strong>{{ videojuegoEliminar()?.nombre }}</strong>?
+    </p>
+
+    <span>
+      Esta acción eliminará definitivamente el videojuego
+      y su portada. No se puede deshacer.
+    </span>
+  </div>
+
+  <div class="gz-delete-actions">
+    <button
+      type="button"
+      class="gz-btn-cancel"
+      [disabled]="eliminando()"
+      (click)="cancelarEliminacion()"
+    >
+      Cancelar
+    </button>
+
+    <button
+      type="button"
+      class="gz-btn-delete"
+      [disabled]="eliminando()"
+      (click)="confirmarEliminacion()"
+    >
+      @if (eliminando()) {
+        <i class="pi pi-spin pi-spinner"></i>
+        Eliminando...
+      } @else {
+        <i class="pi pi-trash"></i>
+        Eliminar definitivamente
+      }
+    </button>
+  </div>
+</p-dialog>

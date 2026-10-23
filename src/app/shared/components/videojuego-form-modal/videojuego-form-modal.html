@@ -1,6 +1,6 @@
 
 <p-dialog
-  header="Nuevo videojuego"
+   [header]="videojuego() ? 'Editar videojuego' : 'Nuevo videojuego'"
   [visible]="visible()"
   (visibleChange)="visibleChange.emit($event)"
   [modal]="true"
@@ -140,6 +140,15 @@
 
       <div class="gz-upload">
         <i class="pi pi-image"></i>
+        @if (videojuego() && imagenActual()) {
+          <div class="gz-current-image">
+            <img
+              [src]="imagenActual()!"
+              [alt]="videojuego()!.nombre"
+            />
+            <span>Portada actual</span>
+          </div>
+        }
 
         <input
           id="imagen"
@@ -171,12 +180,12 @@
         class="gz-btn-save"
         [disabled]="gameForm.invalid || cargando()"
       >
-        @if (cargando()) {
+          @if (cargando()) {
           <i class="pi pi-spin pi-spinner"></i>
           Guardando...
         } @else {
           <i class="pi pi-check"></i>
-          Guardar videojuego
+          {{ videojuego() ? 'Guardar cambios' : 'Crear videojuego' }}
         }
       </button>
     </div>

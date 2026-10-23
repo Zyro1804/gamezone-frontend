@@ -17,6 +17,7 @@ export interface Videojuego {
 export class videojuegosService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/videojuegos`;
+  
 
   obtenerVideojuegos(
     pagina: number = 1,
@@ -29,7 +30,35 @@ export class videojuegosService {
     return this.http.get<unknown>(this.apiUrl, { params });
   }
 
+  
+  obtenerVideojuegosAdmin(
+    pagina: number = 1,
+    limite: number = 10
+  ): Observable<unknown> {
+    const params = new HttpParams()
+      .set('pagina', pagina)
+      .set('limite', limite);
+
+    return this.http.get<unknown>(`${this.apiUrl}/admin`, { params });
+  }
+
   crearVideojuego(datos: FormData): Observable<unknown> {
    return this.http.post<unknown>(this.apiUrl, datos);
+  }
+
+  actualizarVideojuego(
+    id: string,
+    datos: FormData
+  ): Observable<unknown> {
+    return this.http.put<unknown>(
+      `${this.apiUrl}/${id}`,
+      datos
+    );
+  }
+
+  eliminarVideojuego(id: string): Observable<unknown> {
+    return this.http.delete<unknown>(
+      `${this.apiUrl}/${id}`
+    );
   }
 }

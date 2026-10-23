@@ -101,3 +101,81 @@
   align-items: center;
   gap: 12px;
 }
+
+
+.gz-delete-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.gz-delete-content > .pi {
+  font-size: 42px;
+  color: #f5b942;
+}
+
+
+
+.gz-delete-content p {
+  margin: 0;
+  color: var(--gz-white);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.gz-delete-content strong {
+  color: var(--gz-aqua);
+}
+
+.gz-delete-content span {
+  color: #9ca3af;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.gz-delete-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+.gz-btn-cancel,
+.gz-btn-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.gz-btn-cancel {
+  background: transparent;
+  color: var(--gz-white);
+  border: 1px solid #4b5563;
+}
+
+.gz-btn-delete {
+  background: #dc2626;
+  color: white;
+  border: 1px solid #dc2626;
+}
+
+.gz-btn-cancel:hover,
+.gz-btn-delete:hover {
+  opacity: 0.8;
+}
+
+.gz-btn-cancel:disabled,
+.gz-btn-delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

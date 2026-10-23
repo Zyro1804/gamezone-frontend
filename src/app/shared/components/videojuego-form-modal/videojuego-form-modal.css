@@ -155,3 +155,23 @@
     align-items: flex-start;
   }
 }
+
+.gz-current-image {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.gz-current-image img {
+  width: 110px;
+  height: 145px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--gz-green);
+}
+
+.gz-current-image span {
+  color: var(--gz-green-light);
+  font-size: 12px;
+}

@@ -1,1 +1,154 @@
-<p>categorias works!</p>
+
+<div class="gz-admin-categorias">
+
+  <div class="gz-admin-header">
+    <div>
+      <h1>Categorías</h1>
+      <p>Administra las categorías disponibles en GameZone.</p>
+    </div>
+
+    <button pButton type="button" (click)="nuevaCategoria()">
+      <i class="pi pi-plus"></i>
+      Nueva categoría
+    </button>
+  </div>
+
+  @if (cargando()) {
+    <div class="gz-loading">
+      <i class="pi pi-spin pi-spinner"></i>
+      <span>Cargando categorías...</span>
+    </div>
+  }
+
+  @if (errorCarga()) {
+    <div class="gz-error">
+      No se pudieron cargar las categorías.
+      <button type="button" (click)="obtenerCategorias()">
+        Reintentar
+      </button>
+    </div>
+  }
+
+  <p-table
+    [value]="categorias()"
+    [tableStyle]="{ 'min-width': '650px' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-categoria>
+      <tr>
+        <td>{{ categoria.nombre }}</td>
+        <td>{{ categoria.descripcion || 'Sin descripción' }}</td>
+        <td>
+          <span
+            class="gz-status"
+            [class.gz-status-inactive]="categoria.activo === false"
+          >
+            {{ categoria.activo === false ? 'Inactiva' : 'Activa' }}
+          </span>
+        </td>
+        <td>
+          <div class="gz-actions">
+            <button
+              pButton
+              type="button"
+              (click)="editarCategoria(categoria)"
+              title="Editar categoría"
+            >
+              <i class="pi pi-pencil"></i>
+            </button>
+
+            <button
+              pButton
+              type="button"
+              (click)="eliminarCategoria(categoria)"
+              title="Eliminar categoría"
+            >
+              <i class="pi pi-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4">
+          <div class="gz-table-empty">
+            <i class="pi pi-inbox"></i>
+            <span>No hay categorías registradas.</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+
+<p-dialog
+  header="Eliminar categoría"
+  [visible]="mostrarConfirmacion()"
+  (visibleChange)="mostrarConfirmacion.set($event)"
+  [modal]="true"
+  [closable]="!eliminando()"
+  [style]="{ width: '440px', maxWidth: '95vw' }"
+>
+  <div class="gz-delete-content">
+    <i class="pi pi-exclamation-triangle"></i>
+
+    <p>
+      ¿Estás seguro de que deseas eliminar la categoría
+      <strong>{{ categoriaEliminar()?.nombre }}</strong>?
+    </p>
+
+    <span>
+      Esta acción desactivará la categoría y dejará de aparecer
+      en el catálogo.
+    </span>
+
+    <div class="gz-delete-actions">
+      <button
+        type="button"
+        class="gz-btn-cancel"
+        [disabled]="eliminando()"
+        (click)="cancelarEliminacion()"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        class="gz-btn-delete"
+        [disabled]="eliminando()"
+        (click)="confirmarEliminacion()"
+      >
+        @if (eliminando()) {
+          <i class="pi pi-spin pi-spinner"></i>
+          Eliminando...
+        } @else {
+          <i class="pi pi-trash"></i>
+          Eliminar categoría
+        }
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+
+<app-categoria-form-modal
+  [visible]="mostrarModal()"
+  (visibleChange)="mostrarModal.set($event)"
+  [categoria]="categoriaSeleccionada()"
+  [cargando]="guardando()"
+  (guardar)="guardarCategoria($event)"
+/>
+
+<p-toast position="top-right" />

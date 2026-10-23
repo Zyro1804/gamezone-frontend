@@ -4,12 +4,17 @@ import { routes } from './app.routes';
 import { provideOptimus } from '@openng/optimus-ui/config';
 import Aura from '@openng/optimus-ui-themes/aura';
 import { MessageService } from '@openng/optimus-ui/api';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/interceptors/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideOptimus({ theme: { preset: Aura } }),
+    provideHttpClient(
+    withInterceptors([authInterceptor])
+  ),
     MessageService
   ],
 };

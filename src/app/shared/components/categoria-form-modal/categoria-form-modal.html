@@ -1,0 +1,64 @@
+
+<p-dialog
+  [header]="categoria() ? 'Editar categoría' : 'Nueva categoría'"
+  [visible]="visible()"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [closable]="!cargando()"
+  [style]="{ width: '480px', maxWidth: '95vw' }"
+>
+  <form
+    class="gz-category-form"
+    #categoriaForm="ngForm"
+    (ngSubmit)="guardarCategoria()"
+  >
+    <div class="gz-form-field">
+      <label for="categoria-nombre">Nombre *</label>
+      <input
+        id="categoria-nombre"
+        type="text"
+        name="nombre"
+        [(ngModel)]="formulario.nombre"
+        maxlength="100"
+        placeholder="Ej. Acción"
+        required
+      />
+    </div>
+
+    <div class="gz-form-field">
+      <label for="categoria-descripcion">Descripción</label>
+      <textarea
+        id="categoria-descripcion"
+        name="descripcion"
+        [(ngModel)]="formulario.descripcion"
+        rows="4"
+        placeholder="Descripción de la categoría"
+      ></textarea>
+    </div>
+
+    <div class="gz-form-actions">
+      <button
+        type="button"
+        class="gz-btn-cancel"
+        [disabled]="cargando()"
+        (click)="cerrar()"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="submit"
+        class="gz-btn-save"
+        [disabled]="categoriaForm.invalid || cargando()"
+      >
+        @if (cargando()) {
+          <i class="pi pi-spin pi-spinner"></i>
+          Guardando...
+        } @else {
+          <i class="pi pi-check"></i>
+          {{ categoria() ? 'Guardar cambios' : 'Crear categoría' }}
+        }
+      </button>
+    </div>
+  </form>
+</p-dialog>

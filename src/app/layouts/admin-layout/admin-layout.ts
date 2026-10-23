@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Auth } from '../../core/services/auth';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   selector: 'app-admin-layout',
   styleUrl: './admin-layout.css',
   templateUrl: './admin-layout.html',

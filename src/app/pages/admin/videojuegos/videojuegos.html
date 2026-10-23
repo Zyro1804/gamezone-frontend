@@ -20,15 +20,17 @@
   </div>
 }
 
+
 <p-table
   [value]="videojuegos()"
-  [tableStyle]="{ 'min-width': '650px' }"
+  [tableStyle]="{ 'min-width': '850px' }"
 >
   <ng-template pTemplate="header">
     <tr>
-      <th>ID</th>
+      <th>Portada</th>
       <th>Nombre</th>
       <th>Categoría</th>
+      <th>Plataforma</th>
       <th>Precio</th>
       <th>Estado</th>
       <th>Acciones</th>
@@ -37,18 +39,60 @@
 
   <ng-template pTemplate="body" let-videojuego>
     <tr>
-      <td>{{ videojuego.id }}</td>
-      <td>{{ videojuego.nombre }}</td>
-      <td>{{ videojuego.categoria }}</td>
-      <td>{{ videojuego.precio | currency:'MXN' }}</td>
-      <td>{{ videojuego.activo ? 'Activo' : 'Inactivo' }}</td>
+      <td>
+        <div class="gz-game-image">
+          @if (videojuego.imagenUrl) {
+            <img
+              [src]="obtenerUrlImagen(videojuego.imagenUrl)"
+              [alt]="videojuego.nombre"
+              loading="lazy"
+            />
+          } @else {
+            <i class="pi pi-image"></i>
+          }
+        </div>
+      </td>
+
+      <td>
+        <strong>{{ videojuego.nombre }}</strong>
+      </td>
+
+      <td>
+        {{ videojuego.categoria?.nombre || 'Sin categoría' }}
+      </td>
+
+      <td>
+        {{ videojuego.plataforma || 'No especificada' }}
+      </td>
+
+      <td>
+        {{ videojuego.precio | currency:'MXN' }}
+      </td>
+
+      <td>
+        <span
+          class="gz-status"
+          [class.gz-status-inactive]="videojuego.activo === false"
+        >
+          {{ videojuego.activo === false ? 'Inactivo' : 'Activo' }}
+        </span>
+      </td>
+
       <td>
         <div class="gz-actions">
-          <button type="button" pButton>
+          <button
+            pButton
+            type="button"
+            title="Editar videojuego"
+          >
             <i class="pi pi-pencil"></i>
           </button>
 
-          <button type="button" pButton>
+          <button
+            pButton
+            type="button"
+            title="Eliminar videojuego"
+          >
             <i class="pi pi-trash"></i>
           </button>
         </div>
@@ -58,7 +102,7 @@
 
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="6">
+      <td colspan="7">
         <div class="gz-table-empty">
           <i class="pi pi-inbox"></i>
           <span>No hay videojuegos registrados.</span>
@@ -67,6 +111,7 @@
     </tr>
   </ng-template>
 </p-table>
+
 
 </div>
 
@@ -77,3 +122,5 @@
   [cargando]="guardando()"
   (guardar)="guardarVideojuego($event)"
 />
+
+<p-toast position="top-right" />
